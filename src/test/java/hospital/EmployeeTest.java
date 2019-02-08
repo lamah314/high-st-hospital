@@ -206,8 +206,27 @@ public class EmployeeTest {
 		int initialBlood = underPatient.getBloodLevel();
 		underEmployee.drawBlood(underPatient);
 		int finalBlood = underPatient.getBloodLevel();
-		Assert.assertEquals(" ", underEmployee.getSpecialty());
+		Assert.assertEquals(initialBlood - 1, finalBlood);
 	}
 	
+	@Test
+	public void shouldDraw2BloodUnitsByNurse() {
+		Nurse underEmployee = new Nurse("Phil", 123);
+		Patient underPatient = new Patient("Sam");
+		int initialBlood = underPatient.getBloodLevel();
+		underEmployee.drawBlood(underPatient);
+		int finalBlood = underPatient.getBloodLevel();
+		Assert.assertEquals(initialBlood - 2, finalBlood);
+	}
+	
+	@Test
+	public void shouldDraw15BloodUnitsByVampireJanitor() {
+		VampireJanitor underEmployee = new VampireJanitor("Phil", 123);
+		Patient underPatient = new Patient("Sam");
+		int initialBlood = underPatient.getBloodLevel();
+		underEmployee.drawBlood(underPatient);
+		int finalBlood = underPatient.getBloodLevel();
+		Assert.assertEquals(initialBlood - 15, finalBlood);
+	}
 	
 }

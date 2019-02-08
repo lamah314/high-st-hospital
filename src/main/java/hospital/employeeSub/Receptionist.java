@@ -5,7 +5,7 @@ import hospital.Patient;
 import hospital.interactions.BusyStatus;
 import hospital.interactions.CareForPatients;
 
-public class Receptionist extends Employee implements BusyStatus, CareForPatients{
+public class Receptionist extends Employee implements BusyStatus{
 
 	private boolean onPhoneStatus;
 	
@@ -21,16 +21,6 @@ public class Receptionist extends Employee implements BusyStatus, CareForPatient
 
 	public void toggleOnPhoneStatus() {
 		onPhoneStatus = !onPhoneStatus;
-	}
-	
-	@Override
-	public void drawBlood(Patient patient) {
-		patient.lowerBloodLevel(4); //Not very good at drawing blood.
-	}
-
-	@Override
-	public void careForPatient(Patient patient) {
-		patient.raiseHealthLevel(1); //A nice pleasant voice is all they can offer. 
 	}
 
 }

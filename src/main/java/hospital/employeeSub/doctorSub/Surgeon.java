@@ -24,13 +24,8 @@ public class Surgeon extends Doctor implements BusyStatus, CareForPatients{
 	}
 	
 	@Override
-	public void drawBlood(Patient patient) {
-		patient.lowerBloodLevel(1);
-	}
-
-	@Override
 	public void careForPatient(Patient patient) {
-		patient.raiseHealthLevel(8); //Busy surgeons know how to care, but not as good
+		patient.raiseHealthLevel(7); //Busy surgeons know how to care, but not as good as Doctors
 	}
 
 }

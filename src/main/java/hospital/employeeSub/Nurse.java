@@ -12,7 +12,7 @@ import hospital.interactions.CareForPatients;
 
 public class Nurse extends Employee implements CareForPatients{
 
-	Collection<Patient> patientList = new ArrayList<Patient>();
+	private Collection<Patient> patientList = new ArrayList<Patient>();
 	
 	public Collection<Patient> getPatientList() {
 		return patientList;
@@ -59,7 +59,7 @@ public class Nurse extends Employee implements CareForPatients{
 	
 	@Override
 	public void drawBlood(Patient patient) {
-		patient.lowerBloodLevel(2);
+		patient.lowerBloodLevel(2); //Long hours and careless mistakes
 	}
 
 	@Override

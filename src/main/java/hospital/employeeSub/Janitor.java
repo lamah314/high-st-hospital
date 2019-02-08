@@ -5,7 +5,7 @@ import hospital.Patient;
 import hospital.interactions.BusyStatus;
 import hospital.interactions.CareForPatients;
 
-public class Janitor extends Employee implements BusyStatus, CareForPatients{
+public class Janitor extends Employee implements BusyStatus{
 
 	private boolean isSweeping;
 	
@@ -23,13 +23,4 @@ public class Janitor extends Employee implements BusyStatus, CareForPatients{
 		isSweeping = !isSweeping;
 	}
 	
-	@Override
-	public void drawBlood(Patient patient) {
-		patient.lowerBloodLevel(4);
-	}
-
-	@Override
-	public void careForPatient(Patient patient) {
-		patient.raiseHealthLevel(1); //Janitors do not know how to care for patients. But they do know how to care for floors. 
-	}
 }
