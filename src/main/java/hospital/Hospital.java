@@ -55,4 +55,17 @@ public class Hospital {
 		employeeList.remove(IDofEmployee);
 	}
 	
+	public void displayEmployeeStats() {
+		for (Employee specificEmployee : employeeList.values()) {
+			specificEmployee.displayStats();
+		}
+	}
+	
+	public void displayPatientStats() {
+		for (Patient specificPatient : patientList.values()) {
+			specificPatient.displayStats();
+
+		}
+	}
+	
 }

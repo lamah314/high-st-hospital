@@ -1,4 +1,4 @@
-package hospital.interactions;
+package hospital.interfaces;
 
 import hospital.Patient;
 

@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 import hospital.Employee;
 import hospital.Patient;
-import hospital.interactions.CareForPatients;
+import hospital.interfaces.CareForPatients;
 
 public class Nurse extends Employee implements CareForPatients{
 

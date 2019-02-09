@@ -2,8 +2,8 @@ package hospital.employeeSub;
 
 import hospital.Employee;
 import hospital.Patient;
-import hospital.interactions.BusyStatus;
-import hospital.interactions.CareForPatients;
+import hospital.interfaces.BusyStatus;
+import hospital.interfaces.CareForPatients;
 
 public class Receptionist extends Employee implements BusyStatus{
 

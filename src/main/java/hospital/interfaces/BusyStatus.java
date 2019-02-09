@@ -1,4 +1,4 @@
-package hospital.interactions;
+package hospital.interfaces;
 
 public interface BusyStatus {
 

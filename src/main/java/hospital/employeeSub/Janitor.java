@@ -2,10 +2,11 @@ package hospital.employeeSub;
 
 import hospital.Employee;
 import hospital.Patient;
-import hospital.interactions.BusyStatus;
-import hospital.interactions.CareForPatients;
+import hospital.interfaces.BusyStatus;
+import hospital.interfaces.CareForPatients;
+import hospital.interfaces.Cleaner;
 
-public class Janitor extends Employee implements BusyStatus{
+public class Janitor extends Employee implements BusyStatus, Cleaner{
 
 	private boolean isSweeping;
 	
@@ -19,8 +20,11 @@ public class Janitor extends Employee implements BusyStatus{
 		super.payForJanitor();
 	}
 
-	public void toggleOnPhoneStatus() {
+	public void toggleIsSweepingStatus() {
 		isSweeping = !isSweeping;
 	}
 	
+	public void sweepHospital() {
+		
+	}
 }

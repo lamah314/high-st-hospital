@@ -2,8 +2,8 @@ package hospital.employeeSub.doctorSub;
 
 import hospital.Patient;
 import hospital.employeeSub.Doctor;
-import hospital.interactions.BusyStatus;
-import hospital.interactions.CareForPatients;
+import hospital.interfaces.BusyStatus;
+import hospital.interfaces.CareForPatients;
 
 public class Surgeon extends Doctor implements BusyStatus, CareForPatients{
 	
