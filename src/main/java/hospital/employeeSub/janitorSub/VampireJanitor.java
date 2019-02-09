@@ -1,0 +1,32 @@
+package hospital.employeeSub.janitorSub;
+
+import hospital.Patient;
+import hospital.employeeSub.Janitor;
+import hospital.interfaces.BusyStatus;
+import hospital.interfaces.CareForPatients;
+import hospital.interfaces.Cleaner;
+
+public class VampireJanitor extends Janitor implements BusyStatus, CareForPatients, Cleaner{
+	
+	public VampireJanitor(String name, int ID) {
+		super(name, ID);
+		super.payForJanitor();
+	}
+	
+	public void sweepTick(int time) {
+		super.sweepTick(2*time); //Vampires finish their duties twice as fast as humans
+	}
+	
+	@Override
+	public void drawBlood(Patient patient) {
+		patient.lowerBloodLevel(15);
+	}
+
+	@Override
+	public void careForPatient(Patient patient) {
+		patient.lowerHealthLevel(5); //lowers Health because Vampires are not working at hospitals to help patients. They are there to suck blood. 
+	}
+	
+	
+
+}
