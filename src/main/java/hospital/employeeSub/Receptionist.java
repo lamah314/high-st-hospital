@@ -15,6 +15,7 @@ public class Receptionist extends Employee implements BusyStatus{
 	private String patientName;
 	private Scanner input = new Scanner(System.in); 
 	private int phoningSkill;
+	private Hospital homeHospital;
 	
 	@Override
 	public boolean getBusyStatus() {
@@ -50,13 +51,17 @@ public class Receptionist extends Employee implements BusyStatus{
 	public void onPhoneDuration(int time) {
 		onPhoneCounter = time;
 	}
-	
+	@Override
 	public void tick() {
 		onPhoneCounter -= 1;
 	}
 	
-	public void fileNailsAndChewGum() {
-		skillz += 1;
+	public void fileNailsAndChewGum() { //secretly increases important skill
+		phoningSkill += 1;
+	}
+	
+	public void addHomeHospital(Hospital hospital) {
+		homeHospital = hospital;
 	}
 	
 	public void startPhoning() {
@@ -67,10 +72,10 @@ public class Receptionist extends Employee implements BusyStatus{
 		onPhoneDuration(Math.max(1, 5 - phoningSkill)); //duration is inversely related to Phoning skills
 	}
 	
-	public void checkStopPhone(Hospital hospital, int time) {
+	public void checkFree() {
 		if (onPhoneCounter <= 0 && getBusyStatus() == true) {
 			toggleOnPhoneStatus();
-			hospital.addPatient(new Patient(patientName));
+			homeHospital.addPatient(new Patient(patientName));
 			System.out.println(getName() + " found a patient named " + patientName);
 		}
 	}

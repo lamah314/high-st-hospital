@@ -3,6 +3,7 @@ package hospital.employeeSub;
 import hospital.Employee;
 import hospital.Hospital;
 import hospital.Patient;
+import hospital.employeeSub.janitorSub.VampireJanitor;
 import hospital.interfaces.BusyStatus;
 import hospital.interfaces.CareForPatients;
 import hospital.interfaces.Cleaner;
@@ -11,7 +12,9 @@ public class Janitor extends Employee implements BusyStatus, Cleaner{
 
 	private boolean isSweeping;
 	private int sweepCounter;
-	String formatName = "%-16s%s%n";
+	private String formatName = "%-16s%s%n";
+	private Hospital homeHospital;
+	double probabilityOfInfection = .5;
 	
 	@Override
 	public boolean getBusyStatus() {
@@ -25,6 +28,10 @@ public class Janitor extends Employee implements BusyStatus, Cleaner{
 		} else {
 			return "free";
 		}
+	}
+	
+	public Hospital getHomeHospital() {
+		return homeHospital;
 	}
 	
 	public Janitor(String name, int ID) {
@@ -53,24 +60,43 @@ public class Janitor extends Employee implements BusyStatus, Cleaner{
 		sweepCounter = time;
 	}
 	
+	@Override
 	public void tick() {
+		if(isSweeping) {
+		homeHospital.cleanHospital(2);
+		}
 		sweepCounter -= 1;
 	}
 	
-	public void startSweeping(int time) {
-		toggleIsSweepingStatus();
-		sweepDuration(time);
-	}
-	
-	public void checkStopSweeping(int time) {
+	public void checkFree() {
 		if (sweepCounter <= 0 && getBusyStatus() == true) {
 			toggleIsSweepingStatus();
+			System.out.println("Janitor " + getName() + " finished sweeping.");
 		}
 	}
 	
+	public void addHomeHospital(Hospital hospital) {
+		homeHospital = hospital;
+	}
+	
 	@Override
-	public void CleanHospital(Hospital hospital, int amount) {
-		hospital.cleanHospital(amount);
-		startSweeping(Math.round(amount/2)); //it takes a janitor x amount of time to clean the hospital 2x units
+	public void cleanHospital(int duration) {
+		toggleIsSweepingStatus();
+		sweepDuration(duration); //it takes a janitor x amount of time to clean the hospital 2x units
+	}
+
+	public void careForBats() {
+		if (Math.random() < probabilityOfInfection) {
+		System.out.println(getName() + " lost focus due to Mary Jane.");
+		System.out.println("A bat flew down and bit his neck!");
+		System.out.println("He begins to sweep in a daze");
+		homeHospital.addEmployee(new VampireJanitor(this.getName(), this.getID()));
+		((VampireJanitor) homeHospital.getEmployee(this.getID())).addHomeHospital(this.getHomeHospital());
+		((VampireJanitor) homeHospital.getEmployee(this.getID())).cleanHospital(6);
+		} else {
+			System.out.println(getName() + " cared for the bats and went home for the day.");
+			System.out.println("Nothing significant happened.");
+			probabilityOfInfection += .1;
+		}
 	}
 }

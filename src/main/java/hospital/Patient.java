@@ -103,8 +103,8 @@ public class Patient {
 	}
 	
 	public void deathWarning() {
-		if (healthLevel <= 0 || bloodLevel <= 0) {
-			deathFlag = true;
+		if (healthLevel <= 5 || bloodLevel <= 5) {
+			System.out.println("Patient " + getName() + " needs to be tended to.");
 		}
 	}
 	

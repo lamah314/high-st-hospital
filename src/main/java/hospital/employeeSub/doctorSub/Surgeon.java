@@ -62,8 +62,9 @@ public class Surgeon extends Doctor implements BusyStatus, CareForPatients{
 		operatingCounter = time;
 	}
 	
-	public void tick(int time) {
-		operatingCounter -= time;
+	@Override
+	public void tick() {
+		operatingCounter -= 1;
 	}
 	
 	public void startOperating(int time) {
@@ -71,7 +72,7 @@ public class Surgeon extends Doctor implements BusyStatus, CareForPatients{
 		operatingDuration(time);
 	}
 	
-	public void checkStopOperating(int time) {
+	public void checkFree() {
 		if (operatingCounter <= 0 && getBusyStatus() == true) {
 			toggleOperating();
 			operatingPatient.healSpecialty();
