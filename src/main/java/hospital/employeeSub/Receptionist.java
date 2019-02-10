@@ -7,7 +7,7 @@ import hospital.interfaces.CareForPatients;
 
 public class Receptionist extends Employee implements BusyStatus{
 
-	private boolean onPhoneStatus;
+	private boolean onPhoneStatus; 
 	
 	@Override
 	public boolean getBusyStatus() {
@@ -18,8 +18,18 @@ public class Receptionist extends Employee implements BusyStatus{
 		super(name, ID);
 		super.payForReceptionist();
 	}
+	
+	public void displayStats() {
+		System.out.println("Receptionist\t" + getName()+"\t" + getID()+"\t\t\t" + getBusyStatus());;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return (super.getID() + ": " + super.getName() + " is a Receptionist at High St. Hospital");
+	}
 
-	public void toggleOnPhoneStatus() {
+	public void toggleOnPhoneStatus() { //will mark the arrival of new patients
 		onPhoneStatus = !onPhoneStatus;
 	}
 

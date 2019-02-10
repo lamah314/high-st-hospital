@@ -23,8 +23,9 @@ public abstract class Employee {
 		this.ID = ID;
 	}
 
-	public void displayStats() {
-		System.out.println(name + " is an employee at High St. Hospital");;
+	@Override
+	public String toString() {
+		return (ID + ": " + name + " is an employee at High St. Hospital");
 	}
 	
 	
