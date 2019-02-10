@@ -11,10 +11,20 @@ public class Janitor extends Employee implements BusyStatus, Cleaner{
 
 	private boolean isSweeping;
 	private int sweepCounter;
+	String formatName = "%-16s%s%n";
 	
 	@Override
 	public boolean getBusyStatus() {
 		return isSweeping;
+	}
+	
+	@Override
+	public String displayBusyStatus() {
+		if (isSweeping) {
+			return "Is Sweeping";
+		} else {
+			return "free";
+		}
 	}
 	
 	public Janitor(String name, int ID) {
@@ -23,7 +33,11 @@ public class Janitor extends Employee implements BusyStatus, Cleaner{
 	}
 	
 	public void displayStats() {
-		System.out.println("Janitor\t\t" + getName()+"\t" + getID()+"\t\t\t" + getBusyStatus());;
+		System.out.printf(formatName, super.oneTurnIndicator() + "Janitor",getName()+"\t" + getID()+"\t\t\t" + displayBusyStatus());;
+	}
+	
+	public void displayStatsNoJob() {
+		System.out.println(super.oneTurnIndicator() + getName()+"\t" + getID()+"\t\t\t" + displayBusyStatus());;
 	}
 	
 	@Override
@@ -39,8 +53,8 @@ public class Janitor extends Employee implements BusyStatus, Cleaner{
 		sweepCounter = time;
 	}
 	
-	public void sweepTick(int time) {
-		sweepCounter -= time;
+	public void tick() {
+		sweepCounter -= 1;
 	}
 	
 	public void startSweeping(int time) {

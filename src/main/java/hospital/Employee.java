@@ -2,9 +2,30 @@ package hospital;
 
 public abstract class Employee {
 
+	private boolean oneTurn = true;
 	private String name;
 	private int ID;
 	private int pay;
+	
+	public boolean getOneTurn() {
+		return oneTurn;
+	}
+	
+	public void doOneTurn() {
+		oneTurn = false;
+	}
+	
+	public void renewOneTurn() {
+		oneTurn = true;
+	}
+	
+	public String oneTurnIndicator() {
+		if (getOneTurn()) {
+			return "*";
+		} else {
+			return "";
+		}
+	}
 	
 	public String getName() {
 		return name;
@@ -23,6 +44,10 @@ public abstract class Employee {
 		this.ID = ID;
 	}
 
+	public void displayBasicStats() {
+		System.out.println(getName()+"\t\t" + getID());;
+	}
+	
 	@Override
 	public String toString() {
 		return (ID + ": " + name + " is an employee at High St. Hospital");

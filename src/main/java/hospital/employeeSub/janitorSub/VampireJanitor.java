@@ -13,8 +13,9 @@ public class VampireJanitor extends Janitor implements BusyStatus, CareForPatien
 		super.payForJanitor();
 	}
 	
-	public void sweepTick(int time) {
-		super.sweepTick(2*time); //Vampires finish their duties twice as fast as humans
+	public void tick() {
+		super.tick();
+		super.tick(); //Vampires finish their sweeping duties twice as fast as humans
 	}
 	
 	@Override

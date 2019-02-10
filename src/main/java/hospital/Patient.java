@@ -39,6 +39,10 @@ public class Patient {
 		return specialtyNeed;
 	}
 	
+	public String getSpecialtyNeedDisplay() {
+		return specialtyNeedDisplay;
+	}
+	
 	public boolean getDeathFlag() {
 		return deathFlag;
 	}

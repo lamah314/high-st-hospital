@@ -9,10 +9,10 @@ import hospital.Patient;
 import hospital.interfaces.CareForPatients;
 
 public class Doctor extends Employee implements CareForPatients{
-
-	String specialty;
 	
-	public Object getSpecialty() {
+	private String specialty;
+	
+	public String getSpecialty() {
 		return specialty;
 	}
 	
@@ -36,7 +36,11 @@ public class Doctor extends Employee implements CareForPatients{
 	}
 
 	public void displayStats() {
-		System.out.println("Doctor\t\t" + getName()+"\t" + getID()+"\t" + getSpecialty());;
+		System.out.println(super.oneTurnIndicator() + "Doctor\t\t" + getName()+"\t" + getID()+"\t" + getSpecialty());;
+	}
+	
+	public void displayStatsNoJob() {
+		System.out.println(super.oneTurnIndicator() + getName()+"\t" + getID()+"\t" + getSpecialty());;
 	}
 	
 	public void specialtyHeart() {

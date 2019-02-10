@@ -29,7 +29,11 @@ public class Nurse extends Employee implements CareForPatients {
 //	}
 
 	public void displayStats() {
-		System.out.println(getName()+"\t" + getID()+"\t" + displayPatientListNamesString());;
+		System.out.println(super.oneTurnIndicator() + "Nurse\t\t" + getName()+"\t" + getID()+"\t" + displayPatientListNamesString());;
+	}
+	
+	public void displayStatsNoJob() {
+		System.out.println(super.oneTurnIndicator() + getName()+"\t" + getID()+"\t" + displayPatientListNamesString());;
 	}
 	
 	public void addPatient(Patient existingPatient) {

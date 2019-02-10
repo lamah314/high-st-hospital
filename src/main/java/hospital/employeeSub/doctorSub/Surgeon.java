@@ -8,10 +8,22 @@ import hospital.interfaces.CareForPatients;
 public class Surgeon extends Doctor implements BusyStatus, CareForPatients{
 	
 	private boolean operatingStatus; //default is false
-
+	private int operatingCounter;
+	private Patient operatingPatient;
+	private String formatName = "%-16s%s%n";
+	
 	@Override
 	public boolean getBusyStatus() {
 		return operatingStatus;
+	}
+	
+	@Override
+	public String displayBusyStatus() {
+		if (operatingStatus) {
+			return "Is Operating";
+		} else {
+			return "free";
+		}
 	}
 	
 	public Surgeon(String name, int ID) {
@@ -25,11 +37,46 @@ public class Surgeon extends Doctor implements BusyStatus, CareForPatients{
 	}
 
 	public void displayStats() {
-		System.out.println("Surgeon\t\t" + getName()+"\t" + getID()+"\t" + getSpecialty()+"\t\t" + getBusyStatus());;
+		System.out.printf(formatName, super.oneTurnIndicator() + "Surgeon" , getName()+"\t" + getID()+"\t" + getSpecialty()+"\t\t" + displayBusyStatus());;
+	}
+	
+	public void displayStatsNoJob() {
+		System.out.println(super.oneTurnIndicator() + getName()+"\t" + getID()+"\t" + getSpecialty()+"\t\t" + displayBusyStatus());;
 	}
 	
 	public void toggleOperating() {
 		operatingStatus = !operatingStatus;
+	}
+	
+	public void operate(Patient patient) {
+		if (((String) super.getSpecialty()).equalsIgnoreCase(patient.getSpecialtyNeed())){
+			startOperating(3);
+		} else {
+			startOperating(10);
+		}
+		operatingPatient = patient;
+		
+	}
+	
+	public void operatingDuration(int time) {
+		operatingCounter = time;
+	}
+	
+	public void tick(int time) {
+		operatingCounter -= time;
+	}
+	
+	public void startOperating(int time) {
+		toggleOperating();
+		operatingDuration(time);
+	}
+	
+	public void checkStopOperating(int time) {
+		if (operatingCounter <= 0 && getBusyStatus() == true) {
+			toggleOperating();
+			operatingPatient.healSpecialty();
+			System.out.println(getName() + " is done operating on " + operatingPatient.getName() + ". It was a success!");
+		}
 	}
 	
 	@Override
