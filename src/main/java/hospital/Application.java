@@ -40,7 +40,9 @@ public class Application {
 		Janitor janitorAdd;
 		Nurse nurseAdd;
 
-		/////////////////// starting hospital
+
+		///////////////////???????????????????????????? starting hospital
+
 		hospital.addEmployee(new Doctor("Phil", 900, "Heart"));
 		hospital.addEmployee(new Surgeon("Who", 950, "Brain"));
 		hospital.addEmployee(new Nurse("Joy", 800));
@@ -59,7 +61,9 @@ public class Application {
 		for (Patient patient : hospital.getPatientList().values()) {
 			((Nurse) hospital.getEmployee(800)).addPatient(patient);
 		}
-		////////////////////////////////////
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		System.out.println("Welcome to High Street Hospital TYCOON");
 		System.out.println(
 				"Your goal is to grow your hospital through taking care of incoming patients and hiring more employees!");
@@ -360,7 +364,6 @@ public class Application {
 		case "1":
 			hospital.displayDoctorStatsNoJob();
 			System.out.println();
-			pauseOneSec();
 
 			System.out.println("Please choose a Doctor by ID number");
 			IDPick = Integer.parseInt(input.nextLine());
@@ -401,7 +404,6 @@ public class Application {
 		case "2":
 			hospital.displaySurgeonStatsNoJob();
 			System.out.println();
-			pauseOneSec();
 
 			System.out.println("Please choose a Surgeon by ID number");
 			IDPick = Integer.parseInt(input.nextLine());
@@ -454,7 +456,6 @@ public class Application {
 		case "3":
 			hospital.displayReceptionistStatsNoJob();
 			System.out.println();
-			pauseOneSec();
 
 			System.out.println("Please choose a Receptionist by ID number");
 			IDPick = Integer.parseInt(input.nextLine());
@@ -495,7 +496,6 @@ public class Application {
 		case "4":
 			hospital.displayJanitorStatsNoJob();
 			System.out.println();
-			pauseOneSec();
 
 			System.out.println("Please choose a Janitor by ID number");
 			IDPick = Integer.parseInt(input.nextLine());
@@ -538,7 +538,6 @@ public class Application {
 		case "5":
 			hospital.displayNurseStatsNoJob();
 			System.out.println();
-			pauseOneSec();
 
 			System.out.println("Please choose a Nurse by ID number");
 			IDPick = Integer.parseInt(input.nextLine());
