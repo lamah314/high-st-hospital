@@ -21,14 +21,14 @@ public class Hospital {
 
 	private int cleanliness;
 	private int budgetTotal;
-	
-	private int doctorIDCounter = 1; //Y2K Style baby
+
+	private int doctorIDCounter = 1; // Y2K Style baby
 	private int surgeonIDCounter = 1;
 	private int receptionistIDCounter = 1;
 	private int janitorIDCounter = 1;
 	private int nurseIDCounter = 1;
-	
-	private String formatName = "%-16s%s%n"; //counter + name gives varying tab distances, so fixed with format
+
+	private String formatName = "%-16s%s%n"; // counter + name gives varying tab distances, so fixed with format
 
 	private HashMap<Integer, Employee> employeeList = new HashMap<Integer, Employee>();
 	private HashMap<String, Patient> patientList = new HashMap<String, Patient>();
@@ -68,24 +68,23 @@ public class Hospital {
 	public int getDoctorIDCounter() {
 		return doctorIDCounter;
 	}
-	
+
 	public int getSurgeonIDCounter() {
 		return surgeonIDCounter;
 	}
-	
+
 	public int getReceptionistIDCounter() {
 		return receptionistIDCounter;
 	}
-	
+
 	public int getJanitorIDCounter() {
 		return janitorIDCounter;
 	}
-	
+
 	public int getNurseIDCounter() {
 		return nurseIDCounter;
 	}
 
-	
 	public Hospital() {
 		cleanliness = 30;
 		budgetTotal = 500000;
@@ -94,7 +93,7 @@ public class Hospital {
 	public void dirtyHospital(int amount) {
 		cleanliness -= amount;
 	}
-	
+
 	public void cleanHospital(int amount) {
 		cleanliness += amount;
 	}
@@ -110,11 +109,10 @@ public class Hospital {
 	public void addPatient(Patient PatientToAdd) {
 		patientList.put(PatientToAdd.getName(), PatientToAdd);
 	}
-	
+
 	public void removePatient(Patient PatientToAdd) {
 		patientList.remove(PatientToAdd.getName());
 	}
-	
 
 	public int calculateTotalPay() {
 		int totalPay = 0;
@@ -123,23 +121,33 @@ public class Hospital {
 		}
 		return totalPay;
 	}
+
+	public void displayPayAll() {
+		for (Employee specificEmployee : employeeList.values()) {
+			specificEmployee.displayPay();
+		}
+	}
+	
+	public void budgetIncrease() {
+		budgetTotal += 30000;
+	}
 	
 	public void addDoctorIDCounter() {
 		doctorIDCounter += 1;
 	}
-	
+
 	public void addSurgeonIDCounter() {
 		surgeonIDCounter += 1;
 	}
-	
+
 	public void addReceptionistIDCounter() {
 		receptionistIDCounter += 1;
 	}
-	
+
 	public void addJanitorIDCounter() {
 		janitorIDCounter += 1;
 	}
-	
+
 	public void addNurseIDCounter() {
 		nurseIDCounter += 1;
 	}
@@ -303,8 +311,9 @@ public class Hospital {
 		counter = 1;
 		System.out.println("Name\t\t" + "Blood Level\t" + "Health Level\t" + "Specialty Need");
 		for (Patient specificPatient : patientList.values()) {
-			System.out.printf(formatName, " " + counter + ". " + specificPatient.getName(),specificPatient.getBloodLevel()
-					+ "\t\t" + specificPatient.getHealthLevel() + "\t\t" + specificPatient.getSpecialtyNeedDisplay());
+			System.out.printf(formatName, " " + counter + ". " + specificPatient.getName(),
+					specificPatient.getBloodLevel() + "\t\t" + specificPatient.getHealthLevel() + "\t\t"
+							+ specificPatient.getSpecialtyNeedDisplay());
 			numberWithPatient.put(counter, specificPatient.getName());
 			counter++;
 		}
@@ -314,7 +323,7 @@ public class Hospital {
 
 		return userPatientChoice;
 	}
-	
+
 	public String choosePatientAll(Scanner input) {
 		int counter;
 		String userPatientChoice;
@@ -323,8 +332,9 @@ public class Hospital {
 		counter = 1;
 		System.out.println("Name\t\t" + "Blood Level\t" + "Health Level\t" + "Specialty Need");
 		for (Patient specificPatient : patientList.values()) {
-			System.out.printf(formatName, " " + counter + ". " + specificPatient.getName(),specificPatient.getBloodLevel()
-					+ "\t\t" + specificPatient.getHealthLevel() + "\t\t" + specificPatient.getSpecialtyNeedDisplay());
+			System.out.printf(formatName, " " + counter + ". " + specificPatient.getName(),
+					specificPatient.getBloodLevel() + "\t\t" + specificPatient.getHealthLevel() + "\t\t"
+							+ specificPatient.getSpecialtyNeedDisplay());
 			numberWithPatient.put(counter, specificPatient.getName());
 			counter++;
 		}
@@ -337,7 +347,7 @@ public class Hospital {
 
 		return userPatientChoice;
 	}
-	
+
 	public String choosePatientNurse(Scanner input, Nurse nurse) {
 		int counter;
 		String userPatientChoice;
@@ -346,8 +356,9 @@ public class Hospital {
 		counter = 1;
 		System.out.println("Name\t\t" + "Blood Level\t" + "Health Level\t" + "Specialty Need");
 		for (Patient specificPatient : nurse.getPatientList()) {
-			System.out.printf(formatName, " " + counter + ". " + specificPatient.getName(),specificPatient.getBloodLevel()
-					+ "\t\t" + specificPatient.getHealthLevel() + "\t\t" + specificPatient.getSpecialtyNeedDisplay());
+			System.out.printf(formatName, " " + counter + ". " + specificPatient.getName(),
+					specificPatient.getBloodLevel() + "\t\t" + specificPatient.getHealthLevel() + "\t\t"
+							+ specificPatient.getSpecialtyNeedDisplay());
 			numberWithPatient.put(counter, specificPatient.getName());
 			counter++;
 		}
@@ -357,42 +368,40 @@ public class Hospital {
 
 		return userPatientChoice;
 	}
-	
+
 	public String addPatientAllNurse(Scanner input, Nurse nurse) {
 		int counter;
 		String userPatientChoice;
 		HashMap<Integer, String> numberWithPatient = new HashMap<Integer, String>();
 		counter = 1;
-		
-		//grab all patients in hospital but not on nurse's list
+
+		// grab all patients in hospital but not on nurse's list
 		List<Patient> additionalPatients = patientList.values().stream()
-                .filter(not(new HashSet<>(nurse.getPatientList())::contains))
-                .collect(Collectors.toList());
-		
+				.filter(not(new HashSet<>(nurse.getPatientList())::contains)).collect(Collectors.toList());
+
 		if (additionalPatients.size() <= 0) {
-			System.out.println("Nurse " + nurse.getName() + " has all the " );
+			System.out.println("Nurse " + nurse.getName() + " has all the patients already.");
 			return "";
 		} else {
-		System.out.println("Name\t\t" + "Blood Level\t" + "Health Level\t" + "Specialty Need");
-		for (Patient specificPatient : additionalPatients) {
-			System.out.printf(formatName, " " + counter + ". " + specificPatient.getName(),specificPatient.getBloodLevel()
-					+ "\t\t" + specificPatient.getHealthLevel() + "\t\t" + specificPatient.getSpecialtyNeedDisplay());
-			numberWithPatient.put(counter, specificPatient.getName());
-			counter++;
-		}
-		System.out.println(" " + counter + ". All");
-		numberWithPatient.put(counter, "All");
-		
-		System.out.println();
-		System.out.println("Choose by number.");
-		userPatientChoice = numberWithPatient.get(Integer.parseInt(input.nextLine()));
+			System.out.println("Name\t\t" + "Blood Level\t" + "Health Level\t" + "Specialty Need");
+			for (Patient specificPatient : additionalPatients) {
+				System.out.printf(formatName, " " + counter + ". " + specificPatient.getName(),
+						specificPatient.getBloodLevel() + "\t\t" + specificPatient.getHealthLevel() + "\t\t"
+								+ specificPatient.getSpecialtyNeedDisplay());
+				numberWithPatient.put(counter, specificPatient.getName());
+				counter++;
+			}
+			System.out.println(" " + counter + ". All");
+			numberWithPatient.put(counter, "All");
 
-		return userPatientChoice;
+			System.out.println();
+			System.out.println("Choose by number.");
+			userPatientChoice = numberWithPatient.get(Integer.parseInt(input.nextLine()));
+
+			return userPatientChoice;
 		}
 	}
-	
-	
-	
+
 	public String choosePatientAllNurse(Scanner input, Nurse nurse) {
 		int counter;
 		String userPatientChoice;
@@ -401,8 +410,9 @@ public class Hospital {
 		counter = 1;
 		System.out.println("Name\t\t" + "Blood Level\t" + "Health Level\t" + "Specialty Need");
 		for (Patient specificPatient : nurse.getPatientList()) {
-			System.out.printf(formatName, " " + counter + ". " + specificPatient.getName(),specificPatient.getBloodLevel()
-					+ "\t\t" + specificPatient.getHealthLevel() + "\t\t" + specificPatient.getSpecialtyNeedDisplay());
+			System.out.printf(formatName, " " + counter + ". " + specificPatient.getName(),
+					specificPatient.getBloodLevel() + "\t\t" + specificPatient.getHealthLevel() + "\t\t"
+							+ specificPatient.getSpecialtyNeedDisplay());
 			numberWithPatient.put(counter, specificPatient.getName());
 			counter++;
 		}
@@ -415,17 +425,17 @@ public class Hospital {
 
 		return userPatientChoice;
 	}
-	
+
 	public void renewOneTurnAll() {
 		for (Employee specificEmployee : employeeList.values()) {
 			specificEmployee.renewOneTurn();
 		}
-		
+
 	}
 
 	public void tickAll() {
-		dirtyHospital(Math.round(getPatientListSize()/2 + getEmployeeListSize()/6));
-		
+		dirtyHospital(Math.round(getPatientListSize() / 2 + getEmployeeListSize() / 6));
+
 		for (Employee specificEmployee : employeeList.values()) {
 			if (specificEmployee instanceof Surgeon) {
 				((Surgeon) specificEmployee).tick();
@@ -445,28 +455,28 @@ public class Hospital {
 				((Janitor) specificEmployee).checkFree();
 			}
 		}
-		
+
 		for (Employee specificEmployee : employeeList.values()) {
 			if (specificEmployee instanceof VampireJanitor) {
-				((Janitor) specificEmployee).tick(); //doubled by being a subclass of Janitor already
+				((Janitor) specificEmployee).tick(); // doubled by being a subclass of Janitor already
 				((Janitor) specificEmployee).checkFree();
 			}
 		}
-		//trying to auto-cast to instantiated class...no luck
+		// trying to auto-cast to instantiated class...no luck
 //		for (Employee specificEmployee : employeeList.values()) {
 //			if (specificEmployee instanceof hasTick) {
 //				((specificEmployee.getClass().getSimpleName()) specificEmployee).tick();
 //			}
 //		}
-		
+
 		for (Patient specificPatient : patientList.values()) {
 			specificPatient.tick();
 			specificPatient.deathCheck();
-			
+
 			specificPatient.deathWarning();
 		}
 	}
-	
+
 	public void removeDeadPatients() {
 		List<Patient> toRemove = new ArrayList<Patient>();
 
@@ -481,10 +491,26 @@ public class Hospital {
 			}
 		}
 	}
-	
-	//used to find difference between nurse patient list and hospital patient list
+
+	public void removeHealthyPatients() {
+		List<Patient> toRemove = new ArrayList<Patient>();
+
+		for (Patient specificPatient : patientList.values()) {
+			if (specificPatient.getLeaveFlag()) {
+				toRemove.add(specificPatient);
+				budgetIncrease();
+			}
+		}
+		if (toRemove != null) {
+			for (Patient deadNames : toRemove) {
+				removePatient(deadNames);
+			}
+		}
+	}
+
+	// used to find difference between nurse patient list and hospital patient list
 	private static <T> Predicate<T> not(Predicate<T> predicate) {
-	    return predicate.negate();
-	}		
-	
+		return predicate.negate();
+	}
+
 }

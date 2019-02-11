@@ -22,18 +22,19 @@ public class Application {
 		boolean employeeMenu = false;
 		boolean jobMenu = false;
 		boolean employeeActionMenu = false;
-		boolean PatientMenu;
-
+		boolean hospitalMenu;
+		
 		String jobPick = "";
 		String actionInput;
 		String PatientChoice;
 		int IDPick;
 		int fireEmployeeID;
-		
+
 		String userName;
 		String specialtyPick;
 		
-		Doctor doctorAdd; //these are for when adding an employee
+
+		Doctor doctorAdd; // these are for when adding an employee
 		Surgeon surgeonAdd;
 		Receptionist receptionistAdd;
 		Janitor janitorAdd;
@@ -86,10 +87,9 @@ public class Application {
 			System.out.println("Please use a number to make your choice.");
 			System.out.println();
 			System.out.println(" 1. Employees");
-			System.out.println(" 2. Patients");
-			System.out.println(" 3. Hospital");
-			System.out.println(" 4. End Turn");
-			System.out.println(" 5. Exit");
+			System.out.println(" 2. Hospital");
+			System.out.println(" 3. End Turn");
+			System.out.println(" 4. Exit");
 			userInput = input.nextLine();
 
 			switch (userInput) {
@@ -113,116 +113,7 @@ public class Application {
 						jobMenu = employeeActions(input, hospital, jobMenu, jobPick);
 						break;
 					case "2":
-						System.out.println("What is the new employee's name?");
-						userName = input.nextLine();
-						
-						System.out.println("Your budget is " + hospital.extraBudget());
-						System.out.println("Which Employee Job?");
-						System.out.println(" 1. Doctor");
-						System.out.println(" 2. Surgeon");
-						System.out.println(" 3. Receptionist");
-						System.out.println(" 4. Janitor");
-						System.out.println(" 5. Nurse");
-						jobPick = input.nextLine();
-						switch(jobPick) {
-						case "1":
-							System.out.println("What specialty?");
-							System.out.println(" 1. Heart");
-							System.out.println(" 2. Brain");
-							System.out.println(" 3. Foot");
-							specialtyPick = input.nextLine();
-							switch(specialtyPick) {
-							case "1":
-								doctorAdd = new Doctor(userName, 900 + hospital.getDoctorIDCounter(), "Heart");
-								break;
-							case "2":
-								doctorAdd = new Doctor(userName, 900 + hospital.getDoctorIDCounter(), "Brain");
-								break;
-							default:
-								doctorAdd = new Doctor(userName, 900 + hospital.getDoctorIDCounter(), "Foot");
-								break;
-							}
-							if (((Employee)doctorAdd).calculatePay() > hospital.extraBudget()) {
-								System.out.println("You can't afford this Employee");
-								System.out.println("Your budget: "+ hospital.extraBudget());
-								System.out.println("Employee Pay: " + ((Employee)doctorAdd).calculatePay());
-								pauseOneSec();
-								pauseOneSec();
-								break;
-							} else {
-								hospital.addEmployee(doctorAdd);
-								hospital.addDoctorIDCounter();
-								System.out.println("Welcome Doctor " + doctorAdd.getName() + " to the team!");
-								pauseOneSec();
-								break;
-							}
-						case "2":
-							System.out.println("What specialty?");
-							System.out.println(" 1. Heart");
-							System.out.println(" 2. Brain");
-							System.out.println(" 3. Foot");
-							specialtyPick = input.nextLine();
-							switch(specialtyPick) {
-							case "1":
-								surgeonAdd = new Surgeon(userName, 900 + hospital.getSurgeonIDCounter(), "Heart");
-								break;
-							case "2":
-								surgeonAdd = new Surgeon(userName, 900 + hospital.getSurgeonIDCounter(), "Brain");
-								break;
-							default:
-								surgeonAdd = new Surgeon(userName, 900 + hospital.getSurgeonIDCounter(), "Foot");
-								break;
-							}
-							if (((Employee)surgeonAdd).calculatePay() > hospital.extraBudget()) {
-								System.out.println("You can't afford this Employee");
-								System.out.println("Your budget: "+ hospital.extraBudget());
-								System.out.println("Employee Pay: " + ((Employee)surgeonAdd).calculatePay());
-								pauseOneSec();
-								pauseOneSec();
-								break;
-							} else {
-								hospital.addEmployee(surgeonAdd);
-								hospital.addSurgeonIDCounter();
-								System.out.println("Welcome Surgeon" + surgeonAdd.getName() + " to the team!");
-								pauseOneSec();
-								break;
-							}
-						case "3":
-							receptionistAdd = new Receptionist(userName, 100 + hospital.getReceptionistIDCounter());
-							if (((Employee)receptionistAdd).calculatePay() > hospital.extraBudget()) {
-								System.out.println("You can't afford this Employee");
-								System.out.println("Your budget: "+ hospital.extraBudget());
-								System.out.println("Employee Pay: " + ((Employee)receptionistAdd).calculatePay());
-								pauseOneSec();
-								pauseOneSec();
-								break;
-							} else {
-								hospital.addEmployee(receptionistAdd);
-								hospital.addSurgeonIDCounter();
-								System.out.println("Welcome Receptionist" + receptionistAdd.getName() + " to the team!");
-								pauseOneSec();
-								break;
-							}
-						case "4":
-							receptionistAdd = new Receptionist(userName, 100 + hospital.getReceptionistIDCounter());
-							if (((Employee)receptionistAdd).calculatePay() > hospital.extraBudget()) {
-								System.out.println("You can't afford this Employee");
-								System.out.println("Your budget: "+ hospital.extraBudget());
-								System.out.println("Employee Pay: " + ((Employee)receptionistAdd).calculatePay());
-								pauseOneSec();
-								pauseOneSec();
-								break;
-							} else {
-								hospital.addEmployee(receptionistAdd);
-								hospital.addSurgeonIDCounter();
-								System.out.println("Welcome Receptionist" + receptionistAdd.getName() + " to the team!");
-								pauseOneSec();
-								break;
-							}
-						case "5":
-							//Nurse
-							break;
-						}
+						jobPick = addEmployeePrompt(input, hospital);
 						break;
 					case "3":
 						firePrompt(input, hospital);
@@ -235,31 +126,218 @@ public class Application {
 				}
 				break;
 			case "2":
-				hospital.displayPatientStats();
-				System.out.println();
-				pauseOneSec();
-				///
+				hospitalPrompt(input, hospital);
 				break;
 			case "3":
-				hospital.displayAllStats();
-				System.out.println();
-				System.out.println(" 1. Have all Nurses care for all patients");
-				System.out.println(" 2. Send all Janitors out to sweep");
-				System.out.println(" 3. Have all Receptionists call for patients");
-				System.out.println(" 4. Calculate pay for employees");
-				break;
-			case "4":
 				hospital.renewOneTurnAll();
 				hospital.tickAll();
 				break;
-			case "5":
+			case "4":
 				System.out.println("Thanks for playing!");
 				System.exit(0);
 			}
 		}
 	}
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	private static void hospitalPrompt(Scanner input, Hospital hospital) {
+		String userInput;
+		boolean hospitalMenu;
+		
+		hospitalMenu = true;
+		while (hospitalMenu) {
+			hospital.displayAllStats();
+			System.out.println();
+			System.out.println(" 1. Have all Nurses care for all of their patients");
+			System.out.println(" 2. Send all Janitors out to sweep");
+			System.out.println(" 3. Have all Receptionists call for patients");
+			System.out.println(" 4. Calculate pay for employees");
+			System.out.println(" 5. Go back");
+			userInput = input.nextLine();
+			switch (userInput) {
+			case "1":
+				for (Employee specificEmployee : hospital.getEmployeeList().values()) {
+					if (specificEmployee instanceof Nurse && specificEmployee.getOneTurn()) {
+						((Nurse) specificEmployee).careForAllPatientsFromList();
+						specificEmployee.doOneTurn();
+					}
+				}
+				pauseOneSec();
+				break;
+			case "2":
+				System.out.println("How long should they sweep?");
+				userInput = input.nextLine();
+				for (Employee specificEmployee : hospital.getEmployeeList().values()) {
+					if (specificEmployee instanceof Janitor && specificEmployee.getOneTurn()) {
+						((Janitor) specificEmployee).cleanHospital(Integer.parseInt(userInput));
+						specificEmployee.doOneTurn();
+					}
+				}
+				pauseOneSec();
+				break;
+			case "3":
+				for (Employee specificEmployee : hospital.getEmployeeList().values()) {
+					if (specificEmployee instanceof Receptionist && specificEmployee.getOneTurn()) {
+						((Receptionist) specificEmployee).startPhoning();
+						specificEmployee.doOneTurn();
+					}
+				}
+				pauseOneSec();
+				break;
+			case "4":
+				System.out.println("Name\t\t" + "ID\t" + "Pay");
+				hospital.displayPayAll();
+				System.out.println();
+				pauseOneSec();
+				break;
+			default:
+				hospitalMenu = false;
+				break;
+			}
+		}
+	}
+
+	private static String addEmployeePrompt(Scanner input, Hospital hospital) {
+		String jobPick;
+		String userName;
+		String specialtyPick;
+		Doctor doctorAdd;
+		Surgeon surgeonAdd;
+		Receptionist receptionistAdd;
+		Janitor janitorAdd;
+		Nurse nurseAdd;
+		System.out.println("What is the new employee's name?");
+		userName = input.nextLine();
+
+		System.out.println("Your budget is " + hospital.extraBudget());
+		System.out.println("Which Employee Job?");
+		System.out.println(" 1. Doctor");
+		System.out.println(" 2. Surgeon");
+		System.out.println(" 3. Receptionist");
+		System.out.println(" 4. Janitor");
+		System.out.println(" 5. Nurse");
+		System.out.println(" 6. Go Back");
+		jobPick = input.nextLine();
+		switch (jobPick) {
+		case "1":
+			System.out.println("What specialty?");
+			System.out.println(" 1. Heart");
+			System.out.println(" 2. Brain");
+			System.out.println(" 3. Foot");
+			specialtyPick = input.nextLine();
+			switch (specialtyPick) {
+			case "1":
+				doctorAdd = new Doctor(userName, 900 + hospital.getDoctorIDCounter(), "Heart");
+				break;
+			case "2":
+				doctorAdd = new Doctor(userName, 900 + hospital.getDoctorIDCounter(), "Brain");
+				break;
+			default:
+				doctorAdd = new Doctor(userName, 900 + hospital.getDoctorIDCounter(), "Foot");
+				break;
+			}
+			if (((Employee) doctorAdd).calculatePay() > hospital.extraBudget()) {
+				System.out.println("You can't afford this Employee");
+				System.out.println("Your budget: " + hospital.extraBudget());
+				System.out.println("Employee Pay: " + ((Employee) doctorAdd).calculatePay());
+				pauseOneSec();
+				pauseOneSec();
+				break;
+			} else {
+				hospital.addEmployee(doctorAdd);
+				hospital.addDoctorIDCounter();
+				System.out.println("Welcome Doctor " + doctorAdd.getName() + " to the team!");
+				pauseOneSec();
+				break;
+			}
+		case "2":
+			System.out.println("What specialty?");
+			System.out.println(" 1. Heart");
+			System.out.println(" 2. Brain");
+			System.out.println(" 3. Foot");
+			specialtyPick = input.nextLine();
+			switch (specialtyPick) {
+			case "1":
+				surgeonAdd = new Surgeon(userName, 900 + hospital.getSurgeonIDCounter(), "Heart");
+				break;
+			case "2":
+				surgeonAdd = new Surgeon(userName, 900 + hospital.getSurgeonIDCounter(), "Brain");
+				break;
+			default:
+				surgeonAdd = new Surgeon(userName, 900 + hospital.getSurgeonIDCounter(), "Foot");
+				break;
+			}
+			if (((Employee) surgeonAdd).calculatePay() > hospital.extraBudget()) {
+				System.out.println("You can't afford this Employee");
+				System.out.println("Your budget: " + hospital.extraBudget());
+				System.out.println("Employee Pay: " + ((Employee) surgeonAdd).calculatePay());
+				pauseOneSec();
+				pauseOneSec();
+				break;
+			} else {
+				hospital.addEmployee(surgeonAdd);
+				hospital.addSurgeonIDCounter();
+				System.out.println("Welcome Surgeon " + surgeonAdd.getName() + " to the team!");
+				pauseOneSec();
+				break;
+			}
+		case "3":
+			receptionistAdd = new Receptionist(userName, 100 + hospital.getReceptionistIDCounter());
+			if (((Employee) receptionistAdd).calculatePay() > hospital.extraBudget()) {
+				System.out.println("You can't afford this Employee");
+				System.out.println("Your budget: " + hospital.extraBudget());
+				System.out.println("Employee Pay: " + ((Employee) receptionistAdd).calculatePay());
+				pauseOneSec();
+				pauseOneSec();
+				break;
+			} else {
+				hospital.addEmployee(receptionistAdd);
+				hospital.addReceptionistIDCounter();
+				System.out
+						.println("Welcome Receptionist " + receptionistAdd.getName() + " to the team!");
+				pauseOneSec();
+				break;
+			}
+		case "4":
+			janitorAdd = new Janitor(userName, 200 + hospital.getJanitorIDCounter());
+			if (((Employee) janitorAdd).calculatePay() > hospital.extraBudget()) {
+				System.out.println("You can't afford this Employee");
+				System.out.println("Your budget: " + hospital.extraBudget());
+				System.out.println("Employee Pay: " + ((Employee) janitorAdd).calculatePay());
+				pauseOneSec();
+				pauseOneSec();
+				break;
+			} else {
+				hospital.addEmployee(janitorAdd);
+				hospital.addJanitorIDCounter();
+				System.out.println("Welcome Receptionist " + janitorAdd.getName() + " to the team!");
+				pauseOneSec();
+				break;
+			}
+		case "5":
+			nurseAdd = new Nurse(userName, 800 + hospital.getNurseIDCounter());
+			if (((Employee) nurseAdd).calculatePay() > hospital.extraBudget()) {
+				System.out.println("You can't afford this Employee");
+				System.out.println("Your budget: " + hospital.extraBudget());
+				System.out.println("Employee Pay: " + ((Employee) nurseAdd).calculatePay());
+				pauseOneSec();
+				pauseOneSec();
+				break;
+			} else {
+				hospital.addEmployee(nurseAdd);
+				hospital.addSurgeonIDCounter();
+				System.out.println("Welcome Nurse " + nurseAdd.getName() + " to the team!");
+				pauseOneSec();
+				break;
+			}
+		default:
+			break;
+		}
+		return jobPick;
+	}
+
+	
 
 	private static boolean employeeActions(Scanner input, Hospital hospital, boolean jobMenu, String jobPick) {
 		boolean employeeActionMenu;
@@ -470,16 +548,18 @@ public class Application {
 				break;
 			}
 
-			System.out.println("What would you like " + hospital.getEmployee(IDPick).getName() + " to do?");
-			System.out.println(" 1. Draw blood from a patient");
-			System.out.println(" 2. Give blood to a patient");
-			System.out.println(" 3. Care for patient");
-			System.out.println(" 4. Add Patients (No Turn Penalty)");
-			System.out.println(" 5. Remove Patients (No Turn Penalty)");
-			System.out.println(" 6. Go back");
-			actionInput = input.nextLine();
+			
 			nurseMenu = true;
 			while (nurseMenu) {
+				System.out.println("What would you like " + hospital.getEmployee(IDPick).getName() + " to do?");
+				System.out.println(" 1. Draw blood from a patient");
+				System.out.println(" 2. Give blood to a patient");
+				System.out.println(" 3. Care for patient");
+				System.out.println(" 4. Add Patients (No Turn Penalty)");
+				System.out.println(" 5. Remove Patients (No Turn Penalty)");
+				System.out.println(" 6. Go back");
+				actionInput = input.nextLine();
+				
 				switch (actionInput) {
 				case "1":
 					PatientChoice = hospital.choosePatientNurse(input, ((Nurse) hospital.getEmployee(IDPick)));
@@ -505,21 +585,22 @@ public class Application {
 					break;
 				case "4":
 					List<Patient> additionalPatients = hospital.getPatientList().values().stream()
-	                .filter(not(new HashSet<>(((Nurse) hospital.getEmployee(IDPick)).getPatientList())::contains))
-	                .collect(Collectors.toList());
-					
+							.filter(not(
+									new HashSet<>(((Nurse) hospital.getEmployee(IDPick)).getPatientList())::contains))
+							.collect(Collectors.toList());
+
 					PatientChoice = hospital.addPatientAllNurse(input, ((Nurse) hospital.getEmployee(IDPick)));
 					if (PatientChoice.equals("")) {
 						break;
-					} else if (PatientChoice.equalsIgnoreCase("all")){
-						for (Patient specificPatients: additionalPatients) {
-							((Nurse) hospital.getEmployee(IDPick)).addPatient(hospital.getPatient(PatientChoice));
+					} else if (PatientChoice.equalsIgnoreCase("all")) {
+						for (Patient specificPatients : additionalPatients) {
+							((Nurse) hospital.getEmployee(IDPick)).addPatient(hospital.getPatient(specificPatients.getName()));
 						}
+						break;
 					} else {
 						((Nurse) hospital.getEmployee(IDPick)).addPatient(hospital.getPatient(PatientChoice));
+						break;
 					}
-					pauseOneSec();
-					break;
 				case "5":
 					PatientChoice = hospital.choosePatientNurse(input, ((Nurse) hospital.getEmployee(IDPick)));
 					((Nurse) hospital.getEmployee(IDPick)).removePatient(hospital.getPatient(PatientChoice).getName());
@@ -565,9 +646,9 @@ public class Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static <T> Predicate<T> not(Predicate<T> predicate) {
-	    return predicate.negate();
+		return predicate.negate();
 	}
 
 }

@@ -14,6 +14,7 @@ public class Patient {
 	private String specialtyNeed;
 	private String specialtyNeedDisplay;
 	private boolean deathFlag;
+	private boolean leaveFlag;
 
 	public static Object getDefaultBloodLevel() {
 		return BLOOD_LEVEL;
@@ -47,6 +48,10 @@ public class Patient {
 		return deathFlag;
 	}
 	
+	public boolean getLeaveFlag() {
+		return leaveFlag;
+	}
+	
 	public Patient(String name) {
 		this.name = name;
 		bloodLevel = BLOOD_LEVEL;
@@ -67,8 +72,8 @@ public class Patient {
 	}
 
 	public void tick() {
-		raiseBloodLevel(Math.max(0, Math.round((healthLevel-10)/2)));
 		raiseHealthLevel(Math.min(0, Math.round((bloodLevel-5)/2))); //penalize for low blood level (<5)
+		raiseBloodLevel(Math.max(0, Math.round((healthLevel-10)/2))); //raise blood if good health (>10)	
 	}
 	
 	
@@ -83,12 +88,10 @@ public class Patient {
 	public void raiseBloodLevel(int amount) {
 		bloodLevel += amount;
 		enforceMaxBloodValue();
-		enforceMaxHealthValue();
 	}
 	
 	public void raiseHealthLevel(int amount) {
 		healthLevel += amount;
-		enforceMaxBloodValue();
 		enforceMaxHealthValue();
 	}
 
@@ -110,6 +113,12 @@ public class Patient {
 	
 	public void discoverSpecialty() {
 		specialtyNeedDisplay = specialtyNeed;
+	}
+	
+	public void healthCheck() {
+		if (healthLevel >= 20 || bloodLevel >= 20) {
+			leaveFlag = true;
+		}
 	}
 	
 	

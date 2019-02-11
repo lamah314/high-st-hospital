@@ -7,6 +7,8 @@ public abstract class Employee {
 	private int ID;
 	private int pay;
 	
+	private String formatName = "%-16s%s%n";
+	
 	public boolean getOneTurn() {
 		return oneTurn;
 	}
@@ -46,6 +48,10 @@ public abstract class Employee {
 
 	public void displayBasicStats() {
 		System.out.println(getName()+"\t\t" + getID());;
+	}
+	
+	public void displayPay() {
+		System.out.printf(formatName, getName(),  getID() + "\t" + calculatePay());
 	}
 	
 	@Override
