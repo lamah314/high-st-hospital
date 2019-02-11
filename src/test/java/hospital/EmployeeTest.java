@@ -151,15 +151,15 @@ public class EmployeeTest {
 		//***Nurse collection of patients***//
 	@Test
 	public void shouldAddToPatientList() {
-		Nurse underEmployee = new Nurse("Phil", 123);
-		underEmployee.addNewPatient("Danny");
-		Assert.assertEquals(true, underEmployee.checkIfAPatientIsOnList("Danny"));
+		Nurse underPatient = new Nurse("Phil", 123);
+		underPatient.addPatient(new Patient("Danny"));
+		Assert.assertEquals(true, underPatient.checkIfAPatientIsOnList("Danny"));
 	}
 	
 	@Test
 	public void shouldRemovePatientFromPatientList() {
 		Nurse underEmployee = new Nurse("Phil", 123);
-		underEmployee.addNewPatient("Danny");
+		underEmployee.addPatient(new Patient("Danny"));
 		underEmployee.removePatient("Danny");
 		Assert.assertEquals(false, underEmployee.checkIfAPatientIsOnList("Danny"));
 	}

@@ -4,6 +4,6 @@ import hospital.Hospital;
 
 public interface Cleaner {
 
-	public void CleanHospital(Hospital Hospital);
+	public void cleanHospital(int duration);
 	
 }
