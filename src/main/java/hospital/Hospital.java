@@ -472,9 +472,13 @@ public class Hospital {
 		for (Patient specificPatient : patientList.values()) {
 			specificPatient.tick();
 			specificPatient.deathCheck();
+			specificPatient.healthCheck();
 
 			specificPatient.deathWarning();
 		}
+		
+		removeDeadPatients();
+		removeHealthyPatients();
 	}
 
 	public void removeDeadPatients() {
