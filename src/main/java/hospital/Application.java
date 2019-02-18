@@ -47,7 +47,7 @@ public class Application {
 		hospital.addEmployee(new Surgeon("Who", 950, "Brain"));
 		hospital.addEmployee(new Nurse("Joy", 800));
 		hospital.addEmployee(new Receptionist("Kim", 100));
-		hospital.addEmployee(new Janitor("Jesus", 200));
+		hospital.addEmployee(new Janitor("John", 200));
 
 		hospital.addPatient(new Patient("Sam"));
 		hospital.addPatient(new Patient("Ham"));
